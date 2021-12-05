@@ -15,28 +15,21 @@ def get_all_points_between_two_points(pt1, pt2, inc_diag):
     if pt1[0] == pt2[0]:
         max_y = max(pt1[1], pt2[1])
         min_y = min(pt1[1], pt2[1])
-        return [[i, pt1[0]] for i in range(min_y, max_y + 1)]
+        return [[pt1[0], i] for i in range(min_y, max_y + 1)]
     elif pt1[1] == pt2[1]:
         max_x = max(pt1[0], pt2[0])
         min_x = min(pt1[0], pt2[0])
-        return [[pt1[1], i] for i in range(min_x, max_x + 1)]
+        return [[i, pt1[1]] for i in range(min_x, max_x + 1)]
     else:
         if not inc_diag:
             return []
-        points = [[pt1[1], pt1[0]], [pt2[1], pt2[0]]]
+        points = [pt1.copy(), pt2.copy()]
         while True:
-            if pt1[0] < pt2[0]:
-                pt1[0] += 1
-            else:
-                pt1[0] -= 1
-            if pt1[1] < pt2[1]:
-                pt1[1] += 1
-            else:
-                pt1[1] -= 1
-            points.append([pt1[1], pt1[0]])
+            pt1[0] += 1 if pt1[0] < pt2[0] else -1
+            pt1[1] += 1 if pt1[1] < pt2[1] else -1
+            points.append(pt1.copy())
             if pt1[0] == pt2[0] and pt1[1] == pt2[1]:
                 break
-        # print(list(np.unique(np.array(points), axis=0)))
         return list(np.unique(np.array(points), axis=0))
 
 
