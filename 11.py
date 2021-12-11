@@ -53,5 +53,8 @@ while True:
     count += 1
     lines_2, flashes = step(lines_2)
     if np.sum(lines_2) == 0:
+        print("Part 2: ", count)
         break
-print("Part 2: ", count)
+    if count == 10000:
+        print("There's no quick solution")
+        break
